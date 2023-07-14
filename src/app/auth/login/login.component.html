@@ -1,0 +1,30 @@
+<div class="container">
+
+
+    <div class="flex-container">
+      <mat-card [formGroup]="formLogin">
+        <h2>Login</h2>
+        <mat-form-field class="flex-item" appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <mat-icon matSuffix>email</mat-icon>
+          <input matInput placeholder="email@email.com" formControlName="email">
+          <mat-error *ngIf="formLogin.get('email')?.hasError">E-mail deve conter um valor válido</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="flex-item" appearance="outline">
+          <mat-label>Senha</mat-label>
+         
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="senha">
+          <button class="icon-button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Esconder Senha'" [attr.aria-pressed]="hide">
+            <mat-icon matSuffix>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="formLogin.get('senha')?.hasError">senha deve conter um valor válido</mat-error>
+        </mat-form-field>
+  
+  
+      <button mat-raised-button color="primary" (click)="login()">Entrar</button>
+      </mat-card>
+    </div>
+  
+  
+  </div>
