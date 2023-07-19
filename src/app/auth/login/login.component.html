@@ -22,7 +22,7 @@
         </mat-form-field>
   
   
-      <button mat-raised-button color="primary" (click)="login()">Entrar</button>
+      <button mat-raised-button color="primary" (click)="login()" [disabled]="!formLogin.valid">Entrar</button>
       </mat-card>
     </div>
   

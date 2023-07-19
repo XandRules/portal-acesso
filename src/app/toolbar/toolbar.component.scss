@@ -1,0 +1,23 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+  span {
+    margin-right: 20px;
+  }
+
+  .link{
+    cursor: pointer;
+  }
+
+  .link:hover {
+    color: rgb(114, 114, 124);
+  }
+
+  .link:active {
+    color: aqua;
+  }
+
+  .active {
+    color: aqua;
+  }

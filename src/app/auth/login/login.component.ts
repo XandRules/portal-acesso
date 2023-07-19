@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AutenticacaoService } from '../autenticacao.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,9 @@ export class LoginComponent {
 
   formLogin!: FormGroup;
 
-  constructor(private readonly formBuilder: FormBuilder){}
+  constructor(private readonly formBuilder: FormBuilder,
+    private authService: AutenticacaoService,
+    private route: Router){}
 
   ngOnInit(): void {
     this.criarFormulario();
@@ -26,7 +30,14 @@ export class LoginComponent {
   }
 
   login(){
-    console.log(this.formLogin);
+    if(!this.formLogin.valid){
+      return;
+    }
+    this.authService.login(this.formLogin.getRawValue()).subscribe(user => {
+      this.route.navigate(['home'])
+    },(error) => {
+      alert('erro ao tentar fazer o login')
+    });
   }
 
 }
