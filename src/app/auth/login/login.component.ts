@@ -33,11 +33,13 @@ export class LoginComponent {
     if(!this.formLogin.valid){
       return;
     }
-    this.authService.login(this.formLogin.getRawValue()).subscribe(user => {
+    this.authService.login(this.formLogin.getRawValue()).then(resposta => {
       this.route.navigate(['home'])
     },(error) => {
       alert('erro ao tentar fazer o login')
-    });
+    })
   }
+
+
 
 }

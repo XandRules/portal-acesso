@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { User, UserLogin } from './models/user.models';
 
+import { AngularFireAuth } from '@angular/fire/compat/auth'
+import { GoogleAuthProvider } from '@angular/fire/auth'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,10 +13,13 @@ export class AutenticacaoService {
 
   baseUrl = 'http://localhost:3000';
 
-  private userSubject = new BehaviorSubject<User>({user: '', acesso: []});
+  private userSubject = new BehaviorSubject<any>(null);
+
+  user: any;
+  error: any;
 
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, public auth: AngularFireAuth) { 
     const user = sessionStorage.getItem('user');
     if(user){
 
@@ -21,15 +27,21 @@ export class AutenticacaoService {
     }
   }
 
-  login(userLogin: UserLogin): Observable<any> {
-    return this.http.post(`${this.baseUrl}/auth/login`, userLogin).pipe(
-      map(data => {
-        
-        this.setUserSubject(data)
+  async login(userLogin: UserLogin) {
+    try {
 
-        return data;
-      })
-    );
+      const credential = await this.auth.signInWithEmailAndPassword(userLogin.email, userLogin.senha);
+
+      this.user = credential.user;
+
+      this.setUserSubject(this.user);
+
+      return credential.user;
+      
+    } catch (error) {
+      this.error = error;
+      return error;
+    } 
   }
 
   private setUserSubject(user: any){
@@ -46,11 +58,9 @@ export class AutenticacaoService {
   }
 
   logout(){
-    this.userSubject.next({
-      user: '',
-      acesso: []
-    });
+    this.userSubject.next(null);
     sessionStorage.clear();
+    this.auth.signOut();
   }
 
 

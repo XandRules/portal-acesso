@@ -1,8 +1,8 @@
-<mat-toolbar *ngIf="(user$ | async)?.user">
+<mat-toolbar *ngIf="(user$ | async)">
     
     <span>Portal Acesso</span>
     <span class="example-spacer"></span>
-    <span class="link" routerLink="/home" [routerLinkActive]="['active']"  *ngIf="(user$ | async)?.acesso?.includes('USER')">Home</span>
-    <span class="link" routerLink="/dashboard" [routerLinkActive]="['active']" *ngIf="(user$ | async)?.acesso?.includes('ADMIN')" >Dashboard</span>
+    <span class="link" routerLink="/home" [routerLinkActive]="['active']" >Home</span>
+    <span class="link" routerLink="/dashboard" [routerLinkActive]="['active']"  >Dashboard</span>
     <span class="link" (click)="sair()">Sair</span>
 </mat-toolbar>

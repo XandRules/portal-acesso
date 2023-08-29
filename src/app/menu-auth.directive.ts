@@ -2,7 +2,7 @@ import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angula
 import { AutenticacaoService } from './auth/autenticacao.service';
 
 @Directive({
-  selector: '[appMenuAuth]'
+  selector: '[appMenuAuth]',
 })
 export class MenuAuthDirective implements OnInit{
 

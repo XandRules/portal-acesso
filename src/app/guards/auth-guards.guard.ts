@@ -9,16 +9,5 @@ export const authGuardsGuard: CanActivateFn = (route, state) => {
 
  const user = authService.getRoles();
 
- const acesso = route.data['acesso'];
-
- console.log('User', user);
- console.log('Rota acesso', acesso);
-
-
- if(user.acesso.includes(acesso)){
   return true;
- }
-
-
-  return false;
 };
